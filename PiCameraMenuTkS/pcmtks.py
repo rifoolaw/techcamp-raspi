@@ -1,3 +1,6 @@
+import io
+import picamera
+import time
 def PreviewIt():
     camera = picamera.PiCamera()
     try:
@@ -15,16 +18,23 @@ def PreviewTake(dest):
         camera.meter_mode = 'matrix'
         camera.image_effect = 'gpen'
         time.sleep(5)
-        camera.capture('/pi/home/Downloads/' + destination + '.jpg')
+        camera.capture('/pi/home/Downloads/' + dest + '.jpg')
         camera.stop_preview()
 def PiTakeScale(dest, scale):
     with picamera.PiCamera() as camera:
-        camera.resolution = (1280 / scale, 720 / scale)
+        camera.resolution = (1280, 720)
         camera.start_preview()
         camera.exposure_compensation = 2
         camera.exposure_mode = 'spotlight'
         camera.meter_mode = 'matrix'
         camera.image_effect = 'gpen'
         time.sleep(5)
-        camera.capture('/pi/home/Downloads/' + destination + '.jpg')
+        camera.capture('/pi/home/Downloads/' + dest + '.jpg', resize=(1280 / scale, 720 / scale))
         camera.stop_preview()
+def RecordMe(dest, lengh):
+    stream = io.BytesIO()
+    with picamera.PiCamera() as camera:
+        camera.resolution = (640, 480)
+        camera.start_recording('/pi/home/Downloads/' + dest + '.h264')
+        camera.wait_recording(leng)
+        camera.stop_recording()
