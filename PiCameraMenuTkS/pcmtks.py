@@ -18,7 +18,7 @@ def PreviewTake(dest):
         camera.meter_mode = 'matrix'
         camera.image_effect = 'gpen'
         time.sleep(5)
-        camera.capture('/pi/home/Downloads/' + dest + '.jpg')
+        camera.capture('/home/pi/Downloads/' + dest + '.jpg')
         camera.stop_preview()
 def PiTakeScale(dest, scale):
     with picamera.PiCamera() as camera:
@@ -29,12 +29,12 @@ def PiTakeScale(dest, scale):
         camera.meter_mode = 'matrix'
         camera.image_effect = 'gpen'
         time.sleep(5)
-        camera.capture('/pi/home/Downloads/' + dest + '.jpg', resize=(1280 / scale, 720 / scale))
+        camera.capture('/home/pi/Downloads/' + dest + '.jpg', resize=(1280 / scale, 720 / scale))
         camera.stop_preview()
 def RecordMe(dest, lengh):
     stream = io.BytesIO()
     with picamera.PiCamera() as camera:
         camera.resolution = (640, 480)
-        camera.start_recording('/pi/home/Downloads/' + dest + '.h264')
+        camera.start_recording('/home/pi/Downloads/' + dest + '.h264')
         camera.wait_recording(leng)
         camera.stop_recording()
